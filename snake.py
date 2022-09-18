@@ -39,6 +39,9 @@ count = 0
 while True:
     imprimir()
     move = input('(W, A, S, D): ').lower()
+    if not (move == 'w' or move == 'a' or move == 's' or move == 'd'):
+        print('Invalid Option')
+        break
 
     if move == 'w':
         # se for 'o', aumenta de tamanho, e coloca, se não, 
