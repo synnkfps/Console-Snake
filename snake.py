@@ -43,76 +43,97 @@ while True:
         print('Invalid Option')
         break
 
+    # W | up
     if move == 'w':
-        # se for 'o', aumenta de tamanho, e coloca, se não, 
+        if rtabela < 0:
+            rtabela = rtabela + len(tabela)
+
         if tabela[rtabela-1][rpos] == 'o':
             tamanho += 1
             print('+1')
-            tabela[rtabela-1][rpos] = '#'
-            rtabela -= 1
-        else:
-            tabela[rtabela-1][rpos] = '#'
-            tabela[rtabela][rpos] = ' ' 
-            rtabela -= 1
 
-        buffer_y.append(rtabela)
-        tabela[buffer_y[0]+1][rpos] = ' '
-
+        tabela[rtabela-1][rpos] = '#'
+        rtabela -= 1
+        
+        
         if len(buffer_y) > tamanho:
             buffer_y.pop(0)
-        
+
+        if tamanho > 1:
+            print('Tamanho maior, buffer: ', buffer_y)
+            buffer_y.append(rtabela)
+            tabela[buffer_y[0]+1][rpos] = ' '
+        else:
+            tabela[rtabela+1][rpos] = ' '
+    
+    # S | down
     if move == 's':
-        # se for 'o', aumenta de tamanho, e coloca, se não, 
+        
+        if rtabela+1 >= len(tabela):
+            rtabela = -1
+
+        print(rtabela)
         if tabela[rtabela+1][rpos] == 'o':
             tamanho += 1
             print('+1')
-            tabela[rtabela+1][rpos] = '#'
-            rtabela += 1
-        else:
-            tabela[rtabela+1][rpos] = '#'
-            tabela[rtabela][rpos] = ' ' 
-            rtabela += 1
-
-        buffer_y.append(rtabela)
-        tabela[buffer_y[0]-1][rpos] = ' '
+            
+        tabela[rtabela+1][rpos] = '#'
+        rtabela += 1
 
         if len(buffer_y) > tamanho:
             buffer_y.pop(0)
+
+        if tamanho > 1:
+            buffer_y.append(rtabela)
+            tabela[buffer_y[0]-1][rpos] = ' '
+        else:
+            tabela[rtabela-1][rpos] = ' '
+
+    
         
+    # A | left
     if move == 'a':
-        # se for 'o', aumenta de tamanho, e coloca, se não, 
+        if rpos < 0:
+            rpos += len(tabela[rtabela])
+        print(rpos)
         if tabela[rtabela][rpos-1] == 'o':
             tamanho += 1
             print('+1')
-            tabela[rtabela][rpos-1] = '#'
-            rpos -= 1
-        else:
-            tabela[rtabela][rpos-1] = '#'
-            tabela[rtabela][rpos] = ' ' 
-            rpos -= 1
-
-        buffer_x.append(rpos)
-        tabela[rtabela][buffer_x[0]+1] = ' '
+            
+        tabela[rtabela][rpos-1] = '#'
+        rpos -= 1
 
         if len(buffer_x) > tamanho:
             buffer_x.pop(0)
+
+        if tamanho > 1:
+            buffer_x.append(rpos)
+            tabela[rtabela][buffer_x[0]+1] = ' '
+        else:
+            
+            tabela[rtabela][rpos+1] = ' '
         
+        
+    # D | right
     if move == 'd':
-        # se for 'o', aumenta de tamanho, e coloca, se não, 
+        if rpos+1 >= len(tabela[rtabela]):
+            rpos -= len(tabela[rtabela])
+        print(rpos)
         if tabela[rtabela][rpos+1] == 'o':
             tamanho += 1
             print('+1')
-            tabela[rtabela][rpos+1] = '#'
-            rpos += 1
-        else:
-            tabela[rtabela][rpos+1] = '#'
-            tabela[rtabela][rpos] = ' '
-            rpos += 1
 
-        buffer_x.append(rpos)
-        tabela[rtabela][buffer_x[0]-1] = ' '
-
+        tabela[rtabela][rpos+1] = '#'
+        rpos += 1
+       
         if len(buffer_x) > tamanho:
             buffer_x.pop(0)
+
+        if tamanho > 1:
+            buffer_x.append(rpos)
+            tabela[rtabela][buffer_x[0]-1] = ' '
+        else:
+            tabela[rtabela][rpos-1] = ' '
+        
         
     
